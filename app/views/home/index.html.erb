@@ -3,11 +3,11 @@
   require 'fboard/cell'
   require 'fboard/row'
 
-  length = 36
+  length = 35
   cells = []
   (0...length).each do |i|
     event = false
-    event = true if [2, 5, 7, 8, 9, 13, 16, 24, 25, 28, 32, 56].include? i 
+    event = true if [2, 5, 7, 8, 9, 13, 16, 24, 25, 28, 32, 34, 38 ].include? i 
     cells << FC::FrontCell.new(i, event)
   end
 %>
@@ -19,6 +19,10 @@ frow = FBoard::Row.new()
 
 cells.each do |cell|
 
+  if vertical?(row_num)
+    frow.build_vertical(vertical_right?(row_num) ? :right : :left)
+  end
+
   fcell = FBoard::Cell.new(cell)
   cols_count = frow.cols_count + (fcell.width)
 
@@ -28,27 +32,33 @@ cells.each do |cell|
       frow.cells << fcell
     end
 
-    if row_num % 2 != 0
+    if horizontal_left?(row_num)
       frow.cells = frow.cells.reverse
     end
 
-  %>
-  <div class="columns">
-  <%
-    frow.set_cells_direction(row_num % 2 == 0 ? :even : :odd)
-    frow.set_offset(row_num % 2 == 0 ? :even : :odd)
-    frow.cells.each do |rcell|
-  %>
-      <div class="column is-<%=rcell.width%> <%=rcell.offset%>">
-        <% if rcell.index != -1 %>
-          <%= render partial: "notification", locals: {header: rcell.index + 1, body: rcell.icon_name, color: rcell.color} %>
-        <% end %>
-      </div>
-  <% end %>
+    %>
+    <div class="columns">
+    <%
+      
+      frow.set_cells_direction(horizontal_right?(row_num) ? :right : horizontal_left?(row_num) ? :left : :down)
+      
+      if horizontal?(row_num)
+        frow.set_offset(horizontal_right?(row_num) ? :right : :left)
+      end
+      
 
-  </div>
+      frow.cells.each do |rcell|
+    %>
+        <div class="column is-<%=rcell.width%> <%=rcell.offset%>">
+          <% if rcell.index != -1 %>
+            <%= render partial: "notification", locals: {header: rcell.index + 1, body: rcell.icon_name, color: rcell.color} %>
+          <% end %>
+        </div>
+    <% end %>
 
-  <%
+    </div>
+
+    <%
 
     frow = nil
     row_num += 1

@@ -32,28 +32,46 @@ module FBoard
       cell == self.cells.first
     end
 
-    def set_cells_direction(row_type)
+    def set_cells_direction(direction)
       
       self.cells.each do |c|
-        if row_type == :even
+        if direction == :right
           c.direction = "right"
           c.direction = "down" if last? c
-        else
+        elsif direction == :left
           c.direction = "left"
           c.direction = "down" if first? c
+        else
+          c.direction = "down"
         end
       end
 
     end
 
-    def set_offset(row_type)
-      offset = COL_COUNT - cols_count
-      if row_type == :even
-        mock_cell = FBoard::Cell.new(FC::FrontCell.new(-1, false))
-        mock_cell.width = offset
-        self.cells << mock_cell
+    def offset
+      COL_COUNT - cols_count
+    end
+
+    def set_offset(direction)
+      if direction == :right
+        self.cells << spacer_cell(offset)
       else
         self.cells.first.offset = "is-offset-#{offset}"
+      end
+    end
+
+    def spacer_cell(width)
+      cell =  FBoard::Cell.new(FC::FrontCell.new(-1, false))
+      cell.width = width
+      return cell
+    end
+
+    def build_vertical(side)
+      spacer = spacer_cell(offset)
+      if side == :right
+        self.cells.unshift spacer
+      else
+        self.cells. << spacer
       end
     end
 
