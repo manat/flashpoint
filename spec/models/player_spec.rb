@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Player, type: :model do
-  it "is valid with valid attributes" do
-    expect(Player.new(name: 'Ralph')).to be_valid
-  end
+  it { is_expected.to belong_to(:cell) } 
 
-  it "has a unique name" do
-    simone = create(:player, :base)
-    expect { Player.create!(name: simone.name) }.to raise_error(ActiveRecord::RecordInvalid)
+  describe "validations" do
+    subject { build(:player, :base) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name) }
   end
 end
