@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    title ="Flashpoint"
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    section.hero.is-info
+      .hero-head
+       .container
+          nav class="nav"
+            div class="nav-left"
+              a class="nav-item is-brand" href="#"
+                span.title.is-2 = "Flashpoint"
+
+            div class="nav-center"
+              a class="nav-item" href="#"
+                span class="icon"
+                  i class="fa fa-github"
+              a class="nav-item" href="#"
+                span class="icon"
+                  i class="fa fa-twitter"
+
+            span class="nav-toggle"
+              span
+              span
+              span
+
+            div class="nav-right nav-menu"
+              a class="nav-item" href="#"
+                = "Home"
+              a class="nav-item" href="#"
+                = "Documentation"
+              a class="nav-item" href="#"
+                = "Blog"
+
+              span class="nav-item"
+                a class="button" 
+                  span class="icon"
+                    i class="fa fa-twitter"
+                  spanTweet
+                a class="button" href="#"
+                  span class="icon"
+                    i class="fa fa-download"
+                  spanDownload
+    section.section
+      .container
+        = yield
