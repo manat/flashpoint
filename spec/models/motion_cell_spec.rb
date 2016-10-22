@@ -12,5 +12,14 @@ RSpec.describe MotionCell, type: :model do
     expect(cell).to be_valid
     expect(cell.destination).to be(another_motion_cell)
     expect(another_motion_cell.destination).to be(basic_cell)
-  end  
+  end
+
+  subject(:game) { build(:game, :base, turn: 0) } 
+  subject(:players) { build_list(:player, 5, :base, game: game) } 
+  subject(:cell) { build(:motion_cell, :forward, players: players) }
+  it "change player's cell by its destination" do
+    expect { cell.act }.to change { 
+        cell.players.map(&:cell) 
+      }
+  end
 end

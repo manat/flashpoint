@@ -1,7 +1,8 @@
 FactoryGirl.define do
-  factory :cell do
+  factory :detention_cell do
     trait :base do
-      name :origin
+      name :jail
+      turn 4
       association :board, :base
     end
   end

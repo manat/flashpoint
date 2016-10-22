@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :motion_cell do
     factory :destination_cell, class: Cell do
-      name 'dsfds'
+      name 'destiny'
       association :board, :base
     end
 
