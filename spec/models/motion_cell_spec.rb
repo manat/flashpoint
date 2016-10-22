@@ -7,7 +7,7 @@ RSpec.describe MotionCell, type: :model do
   it "has destination as another MotionCell" do
     basic_cell = Cell.new(name: 'Basic cell')
     another_motion_cell = MotionCell.new(name: 'To stop', destination: basic_cell)
-    cell = MotionCell.new(name: 'You are to move further', destination: another_motion_cell)
+    cell = MotionCell.new(name: 'You are to move further', destination: another_motion_cell, board: Board.new)
 
     expect(cell).to be_valid
     expect(cell.destination).to be(another_motion_cell)
