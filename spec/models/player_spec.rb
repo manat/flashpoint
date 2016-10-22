@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Player, type: :model do
   it { is_expected.to belong_to(:cell) } 
+  it { is_expected.to belong_to(:game) } 
 
   describe "validations" do
     subject { build(:player, :base) }
