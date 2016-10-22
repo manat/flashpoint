@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022063259) do
+ActiveRecord::Schema.define(version: 20161022083100) do
 
   create_table "cells", force: :cascade do |t|
     t.string   "type"
-    t.string   "name",           null: false
+    t.string   "name",        null: false
     t.text     "instruction"
-    t.integer  "destination_id"
+    t.integer  "cell_id"
     t.integer  "turn"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["destination_id"], name: "index_cells_on_destination_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["cell_id"], name: "index_cells_on_cell_id"
   end
 
 end
