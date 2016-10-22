@@ -1,3 +1,5 @@
+require 'cell'
+
 module FBoard
 
   class Row
@@ -42,6 +44,17 @@ module FBoard
         end
       end
 
+    end
+
+    def set_offset(row_type)
+      offset = COL_COUNT - cols_count
+      if row_type == :even
+        mock_cell = FBoard::Cell.new(FC::FrontCell.new(-1, false))
+        mock_cell.width = offset
+        self.cells << mock_cell
+      else
+        self.cells.first.offset = "is-offset-#{offset}"
+      end
     end
 
   end
