@@ -35,14 +35,25 @@ module FBoard
     def set_cells_direction(direction)
       
       self.cells.each do |c|
-        if direction == :right
-          c.direction = "right"
+        case direction
+        when :right
+           c.direction = "right"
           c.direction = "down" if last? c
-        elsif direction == :left
+        when :left
           c.direction = "left"
           c.direction = "down" if first? c
-        else
-          c.direction = "down"
+        when :down_right
+          if (self.cells.count > 2) && (c == self.cells.last)
+            c.direction =  "left"
+          else
+            c.direction = "down"
+          end
+        when :down_left
+          if (self.cells.index(c) + 3) == self.cells.count
+            c.direction =  "right"
+          else
+            c.direction = "down"
+          end
         end
       end
 

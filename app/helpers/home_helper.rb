@@ -1,5 +1,15 @@
 module HomeHelper
 
+=begin
+  
+row 0   ========>   % 4 = 0
+row 1           |   % 4 = 1
+row 2   <========   % 4 = 2
+row 3   |           % 4 = 3
+row 4   ========>   % 4 = 0
+                
+=end
+
   def horizontal?(row_num)
     horizontal_right?(row_num) || horizontal_left?(row_num)
   end

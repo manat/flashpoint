@@ -2,7 +2,7 @@ module FBoard
 
   class Cell
 
-    ICON_PREFIX = "arrow-circle-o-"
+    ICON_PREFIX = "angle-"
 
     NORMAL_WIDTH = 1
     EVENT_WIDTH = 2

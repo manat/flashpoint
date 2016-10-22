@@ -3,7 +3,7 @@
   require 'fboard/cell'
   require 'fboard/row'
 
-  length = 35
+  length = 40
   cells = []
   (0...length).each do |i|
     event = false
@@ -19,16 +19,25 @@ frow = FBoard::Row.new()
 
 cells.each do |cell|
 
+  fcell = FBoard::Cell.new(cell)
+
+  # vertical row
   if vertical?(row_num)
+    if cell == cells.last
+      if vertical_right?(row_num)
+        frow.cells.unshift fcell
+      else
+        frow.cells << fcell
+      end
+    end
     frow.build_vertical(vertical_right?(row_num) ? :right : :left)
   end
 
-  fcell = FBoard::Cell.new(cell)
   cols_count = frow.cols_count + (fcell.width)
 
   if frow.column_exceed?(cols_count) || (cell == cells.last)
 
-    if cell == cells.last
+    if cell == cells.last && horizontal?(row_num)
       frow.cells << fcell
     end
 
@@ -40,7 +49,9 @@ cells.each do |cell|
     <div class="columns">
     <%
       
-      frow.set_cells_direction(horizontal_right?(row_num) ? :right : horizontal_left?(row_num) ? :left : :down)
+      frow.set_cells_direction(horizontal_right?(row_num) ? :right : 
+        horizontal_left?(row_num) ? :left : 
+          vertical_right?(row_num) ? :down_right : :down_left)
       
       if horizontal?(row_num)
         frow.set_offset(horizontal_right?(row_num) ? :right : :left)
