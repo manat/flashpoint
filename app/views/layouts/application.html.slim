@@ -4,6 +4,7 @@ html
     title ="Flashpoint"
     = csrf_meta_tags
 
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Quicksand" 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
@@ -16,7 +17,7 @@ html
               a class="nav-item is-brand" href="#"
                 span.icon.is-large
                   i.fa.fa-gamepad
-                span.title.is-2 = "Flashpoint"
+                span.title.is-2.logo = "Flashpoint"
 
             div class="nav-center"
               a class="nav-item" href="#"
@@ -40,8 +41,8 @@ html
                 = "Blog"
       .hero-body
         .container
-          h1.title ="Flashpoint"
-          h2.subtitle = "A simple board game"
+          h1.title.logo => "Flashpoint"
+          h2.subtitle.logo = "A simple board game"
 
     section.section
       .container
