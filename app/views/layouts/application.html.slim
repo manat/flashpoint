@@ -14,7 +14,8 @@ html
           nav class="nav"
             div class="nav-left"
               a class="nav-item is-brand" href="#"
-                span.title.is-2 = "Flashpoint"
+                span.icon.is-large
+                  i.fa.fa-gamepad
 
             div class="nav-center"
               a class="nav-item" href="#"
@@ -36,7 +37,11 @@ html
                 = "Documentation"
               a class="nav-item" href="#"
                 = "Blog"
-                
+      .hero-body
+        .container
+          h1.title ="Flashpoint"
+          h2.subtitle = "A simple board game"
+
     section.section
       .container
         = yield
