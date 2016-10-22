@@ -9,7 +9,7 @@ RSpec.describe Cell, type: :model do
     expect(Cell.new).to_not be_valid
   end
 
-  it "sdfds" do
+  it "has a scope plain to retrieve only cell which has no type" do
     motion_cell = create(:motion_cell, :forward)
 
     expect(Cell.count).to eq(2)
