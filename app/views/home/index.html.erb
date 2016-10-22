@@ -1,0 +1,71 @@
+<% 
+  require 'front_cell'
+
+  length = 84
+  cells = []
+  (0...length).each do |i|
+    event = false
+    event = true if [2, 5, 9, 16, 28, 32, 56, 82].include? i 
+    cells << FC::FrontCell.new(i, event)
+  end
+%>
+
+<% 
+
+# static row width
+row_width = 12
+
+normal_cell_width = 1
+event_cell_width  = 3
+
+acc_row_width = 0
+row_num = 0
+subcell_array = []
+
+cells.each do |cell|
+  acc_row_width += (cell.has_event) ? event_cell_width:normal_cell_width
+
+  if acc_row_width > row_width or (cell == cells.last)
+
+    if row_num % 2 != 0
+      subcell_array = subcell_array.reverse
+    end
+
+%>
+  <div class="columns">
+<%
+    subcell_array.each do |row_cell|
+
+      if row_num % 2 == 0
+        row_cell.icon_name = "arrow-circle-o-right"
+        row_cell.icon_name = "arrow-circle-o-down" if row_cell == subcell_array.last
+      else
+        row_cell.icon_name = "arrow-circle-o-left"
+        row_cell.icon_name = "arrow-circle-o-down" if row_cell == subcell_array.first
+      end
+
+      cell_width = (row_cell.has_event) ? event_cell_width:normal_cell_width
+%>
+      <div class="column is-<%=cell_width%> has-text-right">
+        <p class="notification is-dark"><%=row_cell.i + 1%>
+          <i class="fa fa-<%=row_cell.icon_name%>"></i>
+        </p>
+      </div>
+<%  end %>
+
+  </div>
+
+<%
+
+    # clear value
+    acc_row_width = 0
+    row_num += 1
+    subcell_array.clear
+
+    acc_row_width = (cell.has_event) ? event_cell_width:normal_cell_width
+    subcell_array << cell
+  else
+    subcell_array << cell
+  end
+end
+%>
