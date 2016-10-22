@@ -1,15 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Cell, type: :model do
-  it "is valid with valid attributes" do
-    expect(Cell.new(name: 'basic')).to be_valid
-  end
+  it { is_expected.to have_many(:players) }
+  it { is_expected.to belong_to(:board) }
+  it { is_expected.to validate_presence_of(:name) }
 
-  it "is not valid without a name" do
-    expect(Cell.new).to_not be_valid
-  end
-
-  it "sdfds" do
+  it "has a scope plain to retrieve only cell which has no type" do
     motion_cell = create(:motion_cell, :forward)
 
     expect(Cell.count).to eq(2)

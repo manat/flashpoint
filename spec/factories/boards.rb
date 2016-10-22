@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :cell do
-    trait :basic do
+  factory :board do
+    trait :base do
       name :origin
     end
   end
