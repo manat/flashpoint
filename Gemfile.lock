@@ -187,11 +187,8 @@ DEPENDENCIES
   awesome_print
   byebug
   coffee-rails (~> 4.2)
-<<<<<<< HEAD
-  font-awesome-rails
-=======
   factory_girl_rails
->>>>>>> Added factories for Cell, and MotionCell.
+  font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

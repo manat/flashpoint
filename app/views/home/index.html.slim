@@ -1,1 +1,9 @@
-="Content"
+- width_two = [16, 35, 56, 72]
+
+.columns.is-multiline.is-desktop
+  - (1..80).each do |i|
+      - is_class = i % 2 == 0 ? "is-info": "is-warning"
+      div class=col_class(i, width_two)
+        p class=content_class(i, width_two)
+          => i
+          i class=icon(i, width_two)
