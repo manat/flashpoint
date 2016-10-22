@@ -3,4 +3,8 @@ class Player < ApplicationRecord
   belongs_to :game
 
   validates :name, presence: true, uniqueness: true
+
+  def roll_dice(range = 1..6)
+    rand(range)
+  end
 end
