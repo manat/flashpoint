@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
 
-  before_action :set_user, only: [:destroy]
+  before_action :set_player, only: [:destroy, :roll]
   before_action :set_game, only: [:create]
 
   def create
@@ -21,6 +21,10 @@ class PlayersController < ApplicationController
   def destroy
     @player.destroy
     redirect_to players_url
+  end
+
+  def roll
+    render json: { move: @player.roll_dice }
   end
 
   private

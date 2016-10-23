@@ -30,12 +30,12 @@ h1.title= "Game ID #{@game.id}"
         i.fa.fa-angle-down
     .card-content
       .content
-        p.center
-          = @game.current_player.dice_result || 0
+        p.center.player-move
+          | (0 - 6)
         small 
           | next: 
           = @game.next_player.name
     footer.card-footer
-      a.card-footer-item Roll
+      = link_to("Roll", { controller: :players, action: :roll }, remote: true, method: :post, class: 'card-footer-item')
 
     
