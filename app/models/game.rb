@@ -1,4 +1,6 @@
 class Game < ApplicationRecord
+  scope :unfinished, -> { where(winner: nil) }
+
   has_many :players, autosave: true
   belongs_to :board
   belongs_to :winner, optional: true, class_name: 'Player', foreign_key: 'player_id'
