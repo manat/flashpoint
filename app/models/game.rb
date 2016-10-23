@@ -7,6 +7,8 @@ class Game < ApplicationRecord
 
   validates :turn, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
+  accepts_nested_attributes_for :players
+
   def begin_turn
     players.each do |player| 
       if player.turn == turn
