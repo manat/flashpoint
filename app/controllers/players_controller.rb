@@ -6,6 +6,7 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(create_params)
     @player.game = @game
+    @player.cell = @game.board.cells.order(:id).first
     
     if @player.save
       
