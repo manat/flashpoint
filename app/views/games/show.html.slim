@@ -46,7 +46,7 @@ h1.title= title(@game, @current_player)
           | next: 
           = @game.next_player.name
     footer.card-footer
-      = link_to("Roll", { controller: :players, action: :roll }, remote: true, method: :post, class: 'card-footer-item')
+      = link_to("Roll", players_roll_path(@game.current_player), remote: true, method: :post, class: 'card-footer-item')
 
 javascript:
   window.game = {id: #{@game.id}}
