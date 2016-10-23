@@ -36,4 +36,12 @@ class Game < ApplicationRecord
 
     save
   end
+
+  def current_player
+    players.where({ turn: turn }).first
+  end
+
+  def next_player
+    players.where({ turn: turn }).second
+  end
 end

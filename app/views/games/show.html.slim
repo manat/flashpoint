@@ -20,3 +20,22 @@ h1.title= "Game ID #{@game.id}"
 .notification
   h1.title =@board.name
   = render partial: "players/board", locals: {board: @board}
+
+.container-floating
+  .card
+    header.card-header
+      p.card-header-title
+        = @game.current_player.name
+      a.card-header-icon
+        i.fa.fa-angle-down
+    .card-content
+      .content
+        p.center
+          = @game.current_player.dice_result || 0
+        small 
+          | next: 
+          = @game.next_player.name
+    footer.card-footer
+      a.card-footer-item Roll
+
+    
