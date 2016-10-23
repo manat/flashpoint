@@ -10,6 +10,11 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+    @players = Player.all.order(:id)
+    @player = Player.new
+
+    #hard code board retrieval
+    @board = Board.first
   end
 
   # GET /games/new

@@ -1,0 +1,22 @@
+h1.title= "Game ID #{@game.id}"
+
+.columns
+  .column.is-half
+    nav.panel
+      p.panel-heading ="New player"
+      .notification
+        = render partial: "players/form"
+
+  .column.is-half
+    nav.panel
+      p.panel-heading ="Players"
+
+      - if @players.empty?
+        p.has-text-centered = "No players"
+        
+      - @players.each do |player|
+        = render partial: "players/entry", locals: {name: player.name}
+
+.notification
+  h1.title =@board.name
+  = render partial: "players/board", locals: {board: @board}

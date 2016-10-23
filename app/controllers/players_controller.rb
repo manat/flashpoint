@@ -1,26 +1,20 @@
 class PlayersController < ApplicationController
 
   before_action :set_user, only: [:destroy]
-
-  def index
-    @players = Player.all.order(:id)
-    @player = Player.new
-
-    #hard code board retrieval
-    @board = Board.first
-  end
+  before_action :set_game, only: [:create]
 
   def create
     @player = Player.new(create_params)
+    @player.game = @game
     
     if @player.save
       
       cookies.signed[:player_id] = @player.id
       
-      redirect_to players_url
+      redirect_to @game
     else
-      @players = Player.all.order(:id)
-      render 'index'
+      prepare_game_show_page
+      render "games/show"
     end
   end
 
@@ -30,12 +24,22 @@ class PlayersController < ApplicationController
   end
 
   private
+    def prepare_game_show_page
+      @players = Player.all.order(:id)
+      #hard code board retrieval
+      @board = Board.first
+    end
+
     def create_params
       params.require(:player).permit(:name)
     end
 
     def set_player
       @player = Player.find(params[:id])
+    end
+
+    def set_game
+      @game = Game.find(params[:game_id])
     end
   
 end
