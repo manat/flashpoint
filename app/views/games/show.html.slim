@@ -31,6 +31,23 @@ h1.title= title(@game, @current_player)
   h1.title =@board.name
   = render partial: "players/board", locals: {board: @board}
 
+.container-floating
+  .card
+    header.card-header
+      p.card-header-title
+        = @game.current_player.name
+      a.card-header-icon
+        i.fa.fa-angle-down
+    .card-content
+      .content
+        p.center.player-move
+          | (0 - 6)
+        small 
+          | next: 
+          = @game.next_player.name
+    footer.card-footer
+      = link_to("Roll", { controller: :players, action: :roll }, remote: true, method: :post, class: 'card-footer-item')
+
 javascript:
   window.game = {id: #{@game.id}}
 

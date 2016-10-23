@@ -21,7 +21,8 @@ class GamesController < ApplicationController
 
   # GET /games/new
   def new
-    @game = Game.new
+    @game = Game.new(players: [Player.new])
+    
     render layout: "application_hero"
   end
 
@@ -34,11 +35,8 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
-    # Handles first player
-    @game.players = [Player.new(name: params["player"]["name"])]
-
     # Hard code - board
-    @game.board = Board.first
+    # @game.board = Board.first
 
     respond_to do |format|
       if @game.save
@@ -83,7 +81,7 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.fetch(:game, {})
+      params.fetch(:game, {}).permit(:board_id, players_attributes: [:name])
     end
 
     def set_current_player
