@@ -14,10 +14,10 @@ module FBoard
     attr_accessor :direction
     attr_accessor :offset
 
-    def initialize(bcell)
-      @bcell = bcell
+    def initialize(vars)
+      @bcell = vars[:bcell]
 
-      self.index = determine_index
+      self.index = vars[:index]
       self.width = determine_width
       self.color = determine_color
     end
@@ -26,16 +26,14 @@ module FBoard
       ICON_PREFIX + self.direction
     end
 
-    def determine_index
-      @bcell.i
-    end
-
     def determine_width
-      @bcell.has_event ? Cell::EVENT_WIDTH: Cell::NORMAL_WIDTH
+      #@bcell.has_event ? Cell::EVENT_WIDTH: Cell::NORMAL_WIDTH
+      Cell::NORMAL_WIDTH
     end
 
     def determine_color
-      return (@bcell.has_event) ? "success":"info"
+      #return (@bcell.has_event) ? "success":"info"
+      "success"
     end
 
   end

@@ -5,6 +5,9 @@ class PlayersController < ApplicationController
   def index
     @players = Player.all.order(:id)
     @player = Player.new
+
+    #hard code board retrieval
+    @board = Board.first
   end
 
   def create

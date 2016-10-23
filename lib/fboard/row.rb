@@ -72,7 +72,7 @@ module FBoard
     end
 
     def spacer_cell(width)
-      cell =  FBoard::Cell.new(FC::FrontCell.new(-1, false))
+      cell =  FBoard::Cell.new({bcell: nil, index: -1})
       cell.width = width
       return cell
     end
