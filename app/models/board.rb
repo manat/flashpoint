@@ -1,7 +1,7 @@
 class Board < ApplicationRecord
   attr_accessor :cell_hash
 
-  has_many :cells, autosave: true
+  has_many :cells, autosave: true, dependent: :delete_all
 
   validates :name, presence: true
 
