@@ -1,4 +1,7 @@
 class Game < ApplicationRecord
+
+  MAX_PLAYER = 5
+
   scope :unfinished, -> { where(winner: nil) }
 
   has_many :players, autosave: true
