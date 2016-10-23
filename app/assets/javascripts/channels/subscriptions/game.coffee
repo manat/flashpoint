@@ -31,6 +31,5 @@ App.cable.subscriptions.create "GameChannel",
           $('a.card-footer-item#roll-dice').removeClass('is-disabled')
 
       when "update_board"
-        debugger
         $('#cell_' + data.current_cell + ' #cell_content').remove()
         $('#cell_' + data.new_cell + ' .notification').append('<div class="has-text-centered" id="cell_content">' + data.player + '</div>')

@@ -23,7 +23,7 @@ h1.title= title(@game, @current_player)
       p ="Maximum five players in a game"
       br
       p.control
-        = link_to "Start Game", game_start_url(@game), remote: true, method: :patch, class: "button is-warning", id: "start-game"
+        = link_to "Start Game", game_start_url(@game), remote: true, method: :patch, class: "button is-warning", id: "start-game", disabled: @game.started?
 
       - if @current_player.present?
         p.control
@@ -49,7 +49,7 @@ h1.title= title(@game, @current_player)
             | next: 
             = @game.next_player_name
       footer.card-footer
-        = link_to "Roll", players_roll_path(@game.current_player), remote: true, method: :post, class: "card-footer-item is-disabled", id: "roll-dice"
+        = link_to "Roll", players_roll_path(@game.current_player), remote: true, method: :post, class: "card-footer-item #{"is-disabled" unless @game.started?}", id: "roll-dice"
 
 javascript:
   window.game = {id: #{@game.id}}

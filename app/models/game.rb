@@ -12,6 +12,10 @@ class Game < ApplicationRecord
 
   accepts_nested_attributes_for :players
 
+  def started?
+    turn > 0
+  end
+
   def begin_turn
     players.each do |player| 
       if player.turn == turn
@@ -32,12 +36,15 @@ class Game < ApplicationRecord
   end
 
   def end_turn
-    turn += 1
-    board.cells.each do |cell|
-      cell.act
-    end
+    if players.where({ turn: turn }).count == 0
+      self.turn += 1
 
-    save
+      # TODO : cell act is probably in the wrong plage
+      # board.cells.each do |cell|
+      #   cell.act
+      # end
+      save
+    end
   end
 
   def update_player(player, steps)
@@ -47,8 +54,10 @@ class Game < ApplicationRecord
     else
       player.cell = board.cells[steps - 1]
     end
+    player.turn += 1
 
     players << player
+    end_turn
   end
 
   def current_player
