@@ -4,5 +4,14 @@
 
 .command-bar {
   text-align: right;
-  margin: 1em
+  margin: 1em;
+}
+
+form {
+  margin-bottom: 2em;
+}
+
+#error_explanation {
+  margin-bottom: 2em;
+  color: red;
 }
