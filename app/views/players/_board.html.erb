@@ -1,0 +1,72 @@
+<% 
+require 'fboard/cell'
+require 'fboard/row'
+
+row_num = 0
+frow = FBoard::Row.new()
+
+cells = board.cells
+cells.each_with_index do |cell, index|
+
+  fcell = FBoard::Cell.new(bcell: cell, index: index)
+
+  # vertical row
+  if vertical?(row_num)
+    if cell == cells.last
+      if vertical_right?(row_num)
+        frow.cells.unshift fcell
+      else
+        frow.cells << fcell
+      end
+    end
+    frow.build_vertical(vertical_right?(row_num) ? :right : :left)
+  end
+
+  cols_count = frow.cols_count + (fcell.width)
+
+  if frow.column_exceed?(cols_count) || (cell == cells.last)
+
+    if cell == cells.last && horizontal?(row_num)
+      frow.cells << fcell
+    end
+
+    if horizontal_left?(row_num)
+      frow.cells = frow.cells.reverse
+    end
+
+    %>
+    <div class="columns">
+    <%
+      
+      frow.set_cells_direction(horizontal_right?(row_num) ? :right : 
+        horizontal_left?(row_num) ? :left : 
+          vertical_right?(row_num) ? :down_right : :down_left)
+      
+      if horizontal?(row_num)
+        frow.set_offset(horizontal_right?(row_num) ? :right : :left)
+      end
+      
+
+      frow.cells.each do |rcell|
+    %>
+        <div class="column is-<%=rcell.width%> <%=rcell.offset%>">
+          <% if rcell.index != -1 %>
+            <%= render partial: "home/notification", locals: {header: rcell.index + 1, body: rcell.icon_name, color: rcell.color} %>
+          <% end %>
+        </div>
+    <% end %>
+
+    </div>
+
+    <%
+
+    frow = nil
+    row_num += 1
+
+    frow = FBoard::Row.new()
+  end
+
+  frow.cells << fcell
+  
+end
+%>

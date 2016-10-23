@@ -13,3 +13,7 @@ h1.title="Game Players"
 
       - @players.each do |player|
         = render partial: "entry", locals: {name: player.name}
+
+.notification
+  h1.title =@board.name
+  = render partial: "board", locals: {board: @board}
