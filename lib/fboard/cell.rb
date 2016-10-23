@@ -5,7 +5,8 @@ module FBoard
     ICON_PREFIX = "angle-"
 
     NORMAL_WIDTH = 1
-    EVENT_WIDTH = 2
+    MOTION_WIDTH = 2
+    DETENTION_WIDTH = 2
 
 
     attr_accessor :index
@@ -27,13 +28,30 @@ module FBoard
     end
 
     def determine_width
+      rand(1..2)
+=begin
+      case @bcell.class.name
+      when "DetentionCell"
+        DETENTION_WIDTH
+      when "MotionCell"
+        MOTION_WIDTH
+      else
+        NORMAL_WIDTH
+      end
+=end
       #@bcell.has_event ? Cell::EVENT_WIDTH: Cell::NORMAL_WIDTH
-      Cell::NORMAL_WIDTH
     end
 
     def determine_color
+      case @bcell.class.name
+      when "DetentionCell"
+        "danger"
+      when "MotionCell"
+        "success"
+      else
+        "info"
+      end
       #return (@bcell.has_event) ? "success":"info"
-      "success"
     end
 
   end
