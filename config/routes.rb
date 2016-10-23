@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   get "/home/index", to: "home#index", as: "home"
 
   root to: "home#index"
+
+  resources :players, only: [:index, :create, :destroy]
 end

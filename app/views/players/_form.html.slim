@@ -1,0 +1,7 @@
+= render partial: "global/alert", locals: {obj: @player}
+= form_for @player, html: {} do |f|
+  = f.label :name, class: "label"
+  p.control
+    = f.text_field :name, class: "input is-primary", placeholder: "John Wicked"
+  p.control
+  = f.button class: "button is-primary"

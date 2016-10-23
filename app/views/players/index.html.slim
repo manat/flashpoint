@@ -1,0 +1,15 @@
+h1.title="Game Players"
+
+.columns
+  .column.is-half
+    nav.panel
+      p.panel-heading ="New player"
+      .notification
+        = render partial: "form"
+
+  .column.is-half
+    nav.panel
+      p.panel-heading ="Players"
+
+      - @players.each do |player|
+        = render partial: "entry", locals: {name: player.name}
