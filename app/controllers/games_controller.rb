@@ -35,7 +35,7 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     # Hard code - board
-    @game.board = Board.first
+    # @game.board = Board.first
 
     respond_to do |format|
       if @game.save
@@ -80,6 +80,6 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.fetch(:game, {}).permit(players_attributes: [:name])
+      params.fetch(:game, {}).permit(:board_id, players_attributes: [:name])
     end
 end

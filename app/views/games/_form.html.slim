@@ -2,6 +2,13 @@
   .column.is-half
     = render partial: "global/alert", locals: {obj: game}
     = form_for(game) do |f|
+      / Select Board
+      = f.label :board_game, class: "label"
+      p.control
+        span.select
+          = f.collection_select(:board_id, Board.all, :id, :name)
+      
+      / Player Name
       = f.fields_for :players do |ff|
         = ff.label :name, class: "label"
         p.control
