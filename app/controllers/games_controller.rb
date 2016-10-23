@@ -10,7 +10,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
-    @players = Player.all.order(:id)
+    @players = Player.for_game(@game).order(:id)
     @player = Player.new
 
     #hard code board retrieval

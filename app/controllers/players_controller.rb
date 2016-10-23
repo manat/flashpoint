@@ -25,7 +25,7 @@ class PlayersController < ApplicationController
 
   private
     def prepare_game_show_page
-      @players = Player.all.order(:id)
+      @players = Player.for_game(@game).order(:id)
       #hard code board retrieval
       @board = Board.first
     end
