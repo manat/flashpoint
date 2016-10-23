@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_player, only: [:show]
 
   # GET /games
   # GET /games.json
@@ -83,5 +84,9 @@ class GamesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
       params.fetch(:game, {})
+    end
+
+    def set_current_player
+      @current_player = current_player
     end
 end

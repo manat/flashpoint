@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
 
-  before_action :set_user, only: [:destroy]
+  before_action :set_player, only: [:destroy]
   before_action :set_game, only: [:create]
 
   def create
@@ -10,8 +10,16 @@ class PlayersController < ApplicationController
     if @player.save
       
       cookies.signed[:player_id] = @player.id
-      
-      redirect_to @game
+
+      # broadcast player created
+      ActionCable.server.broadcast(
+        "game",
+        operation: "create",
+        player_id: @player.id,
+        player_name: @player.name
+      ) 
+
+      redirect_to game_path(@game)
     else
       prepare_game_show_page
       render "games/show"
@@ -20,7 +28,17 @@ class PlayersController < ApplicationController
 
   def destroy
     @player.destroy
-    redirect_to players_url
+    cookies.signed[:player_id] = nil
+
+    # broadcast player created
+    ActionCable.server.broadcast(
+      "game",
+      operation: "destroy",
+      player_id: @player.id,
+      player_name: @player.name
+    ) 
+
+    redirect_to games_path
   end
 
   private

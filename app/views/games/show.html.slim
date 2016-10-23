@@ -1,22 +1,39 @@
-h1.title= "Game ID #{@game.id}"
-
+h1.title= title(@game, @current_player)
 .columns
-  .column.is-half
+  .column.is-5
     nav.panel
       p.panel-heading ="New player"
       .notification
         = render partial: "players/form"
 
-  .column.is-half
-    nav.panel
+  .column.is-4
+    nav.panel#players_panel
       p.panel-heading ="Players"
 
       - if @players.empty?
         p.has-text-centered = "No players"
         
       - @players.each do |player|
-        = render partial: "players/entry", locals: {name: player.name}
+        = render partial: "players/entry", locals: {id: player.id, name: player.name,\
+              player: @current_player.present? ? @current_player.id == player.id : false}
+  .column
+    .notification.has-text-centered
+      p ="Maximum five players in a game"
+      br
+      p.control
+        button.button.is-warning
+          ="Start game"
+      - if @current_player.present?
+        p.control
+          = link_to "Leave Room", player_url(@current_player), {method: :delete, class: "button is-danger"}
 
 .notification
   h1.title =@board.name
   = render partial: "players/board", locals: {board: @board}
+
+javascript:
+  window.game = {id: #{@game.id}}
+
+- if @current_player.present?
+  javascript:
+    window.player = {id: "#{@current_player.id}", name: "#{@current_player.name}" }
