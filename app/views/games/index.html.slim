@@ -1,0 +1,26 @@
+/! Command
+.command-bar
+  = link_to 'New Game', new_game_path, class: 'button is-primary'
+
+/! List of games
+- @games.in_groups_of(3).each do |group|
+  .tile.is-ancestor
+    - group.each do |game|
+      - if game
+        .tile.is-parent.is-vertical.is-4
+          article.tile.is-child.notification.is-warning
+            p.title 
+              = link_to "Game #{game.id}", game
+            p.subtitle #{game.board.name}
+            p Players (#{game.players.size})
+            
+      /   .tile.is-parent
+      /     article.tile.is-child.notification.is-warning
+      /       p.title Game 2
+      /       p.subtitle Game Description
+      
+      /   .tile.is-parent
+      /     article.tile.is-child.notification.is-warning
+      /       p.title Game 3
+      /       p.subtitle Game Description
+      / 
