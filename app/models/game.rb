@@ -44,7 +44,15 @@ class Game < ApplicationRecord
     players.where({ turn: turn }).first
   end
 
+  def current_player_name
+    current_player.name if current_player
+  end
+
   def next_player
     players.where({ turn: turn }).second
+  end
+
+  def next_player_name
+    next_player.name if next_player
   end
 end
