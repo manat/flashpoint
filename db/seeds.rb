@@ -45,3 +45,6 @@ vertigo = Board.create(
             cells: vertigo_cells)
 
 
+game_demo = Game.create(board: vertigo)
+
+
