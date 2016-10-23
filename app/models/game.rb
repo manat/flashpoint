@@ -40,6 +40,17 @@ class Game < ApplicationRecord
     save
   end
 
+  def update_player(player, steps)
+    if player.cell 
+      current_index = board.cell_hash[player.cell]
+      player.cell = board.cells[current_index + steps]
+    else
+      player.cell = board.cells[steps - 1]
+    end
+
+    players << player
+  end
+
   def current_player
     players.where({ turn: turn }).first
   end

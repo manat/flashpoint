@@ -9,7 +9,6 @@ class PlayersController < ApplicationController
     @player.cell = @game.board.cells.order(:id).first
     
     if @player.save
-      
       cookies.signed[:player_id] = @player.id
 
       # broadcast player created
@@ -43,7 +42,21 @@ class PlayersController < ApplicationController
   end
 
   def roll
-    render json: { move: @player.roll_dice }
+    current_cell = @player.cell_id - 1
+    steps = @player.roll_dice
+    game = @player.game
+    game.update_player(@player, steps)
+
+    # Update movement
+    ActionCable.server.broadcast(
+      "game",
+      operation: "update_board",
+      player: @player.name,
+      current_cell: current_cell,
+      new_cell: @player.cell_id - 1
+    ) 
+
+    render json: { game: game.id, player: @player.id, steps: steps }
   end
 
   private
