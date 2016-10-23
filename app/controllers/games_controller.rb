@@ -40,6 +40,10 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
+
+        # authorize record
+        cookies.signed[:player_id] = @game.players.first.id  
+
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
       else
