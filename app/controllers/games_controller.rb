@@ -5,6 +5,7 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     @games = Game.unfinished.all
+    render layout: "application_hero"
   end
 
   # GET /games/1
@@ -20,6 +21,7 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    render layout: "application_hero"
   end
 
   # GET /games/1/edit

@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    title ="Flashpoint"
+    = csrf_meta_tags
+
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Quicksand" 
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    section.hero.is-info
+      .hero-head
+       .container
+          nav class="nav"
+            div class="nav-left"
+              a class="nav-item is-brand" href=games_path
+                span.icon.is-large
+                  i.fa.fa-gamepad
+                span.title.is-2.logo = "Flashpoint"
+
+            div class="nav-center"
+              a class="nav-item" href="#"
+                span class="icon"
+                  i class="fa fa-github"
+              a class="nav-item" href="#"
+                span class="icon"
+                  i class="fa fa-twitter"
+
+            span class="nav-toggle"
+              span
+              span
+              span
+
+            div class="nav-right nav-menu"
+              a class="nav-item" href=games_path
+                = "Home"
+            
+      - if content_for?(:hero_body)
+        = yield(:hero_body)
+
+    section.section
+      .container
+        = yield
