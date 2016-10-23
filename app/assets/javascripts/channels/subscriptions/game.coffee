@@ -16,7 +16,7 @@ App.cable.subscriptions.create "GameChannel",
     if data.operation == "create"
       if Number(window.player.id) != Number(data.player_id)
         panel = $('nav#players_panel')
-        panel.append("<a class='panel-block' herf='#'><span class='panel-icon'><i class='fa fa-user'></i></span>#{data.player_name}</a>")
+        panel.append("<a class='panel-block' herf='#' id='#{data.player_id}'><span class='panel-icon'><i class='fa fa-user'></i></span>#{data.player_name}</a>")
     else if data.operation == "destroy"
       $("a\##{data.player_id}").remove()
 
