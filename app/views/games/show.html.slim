@@ -1,10 +1,12 @@
 h1.title= title(@game, @current_player)
 .columns
-  .column.is-5
-    nav.panel
-      p.panel-heading ="New player"
-      .notification
-        = render partial: "players/form"
+
+  - if @current_player.blank?
+    .column.is-5
+      nav.panel
+        p.panel-heading ="New player"
+        .notification
+          = render partial: "players/form"
 
   .column.is-4
     nav.panel#players_panel
@@ -16,7 +18,7 @@ h1.title= title(@game, @current_player)
       - @players.each do |player|
         = render partial: "players/entry", locals: {id: player.id, name: player.name,\
               player: @current_player.present? ? @current_player.id == player.id : false}
-  .column
+  .column.is-3
     .notification.has-text-centered
       p ="Maximum five players in a game"
       br
