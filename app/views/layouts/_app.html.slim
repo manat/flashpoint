@@ -20,14 +20,6 @@ html
                   i.fa.fa-gamepad
                 span.title.is-2.logo = "Flashpoint"
 
-            div class="nav-center"
-              a class="nav-item" href="#"
-                span class="icon"
-                  i class="fa fa-github"
-              a class="nav-item" href="#"
-                span class="icon"
-                  i class="fa fa-twitter"
-
             span class="nav-toggle"
               span
               span
@@ -43,3 +35,24 @@ html
     section.section
       .container
         = yield
+
+    hr 
+    footer.footer
+      .container
+        .content.has-text-centered
+          p Made with love by: 
+          | {  Pongsanti Tanvejsilp 
+          a href="https://github.com/pongsanti" style="border-bottom: none;"
+            span class="icon"
+              i class="fa fa-github"
+          |  } - 
+          |  {  Manat Lertpeetipat
+          a href="https://github.com/manat" style="border-bottom: none;"
+            span class="icon"
+              i class="fa fa-github"
+          a href="https://twitter.com/manat" style="border-bottom: none;"
+            span class="icon"
+              i class="fa fa-twitter"
+          |  }
+
+
