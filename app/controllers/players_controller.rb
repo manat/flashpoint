@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
 
   before_action :set_player, only: [:destroy, :roll]
-  before_action :set_game, only: [:create]
+  before_action :set_game, only: [:create, :destroy]
 
   def create
     @player = Player.new(create_params)
@@ -30,7 +30,7 @@ class PlayersController < ApplicationController
     @player.destroy
     cookies.signed[:player_id] = nil
 
-    # broadcast player created
+    # broadcast player destroyed
     ActionCable.server.broadcast(
       "game",
       operation: "destroy",
@@ -38,7 +38,7 @@ class PlayersController < ApplicationController
       player_name: @player.name
     ) 
 
-    redirect_to games_path
+    redirect_to game_path(@game)
   end
 
   def roll

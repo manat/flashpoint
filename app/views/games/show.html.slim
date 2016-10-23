@@ -27,7 +27,7 @@ h1.title= title(@game, @current_player)
           ="Start game"
       - if @current_player.present?
         p.control
-          = link_to "Leave Room", player_url(@current_player), {method: :delete, class: "button is-danger"}
+          = link_to "Leave Room", game_player_url(@game, @current_player), {method: :delete, class: "button is-danger"}
 
 .notification
   h1.title =@board.name
