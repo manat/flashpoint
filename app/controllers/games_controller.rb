@@ -16,7 +16,7 @@ class GamesController < ApplicationController
     @player = Player.new
 
     #hard code board retrieval
-    @board = Board.first
+    @board = board
   end
 
   # GET /games/new
@@ -41,8 +41,13 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.save
 
+        player = @game.players.first
         # authorize record
-        cookies.signed[:player_id] = @game.players.first.id  
+        cookies.signed[:player_id] = player.id
+
+        # update player cell, hard-coded board retrieval
+        player.cell = board.cells.order(:id).first
+        player.save
 
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
         format.json { render :show, status: :created, location: @game }
@@ -90,5 +95,9 @@ class GamesController < ApplicationController
 
     def set_current_player
       @current_player = current_player
+    end
+
+    def board
+      Board.first
     end
 end
