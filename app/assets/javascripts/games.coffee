@@ -4,5 +4,5 @@
 
 $ ->
   $("a[data-remote]").on "ajax:success", (e, data, status, xhr) ->
-    $(".container-floating p.player-move").text(data.move)
-    
+    if (data)
+      $(".container-floating p.player-move").text(data.move)

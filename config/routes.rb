@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :games do
     resources :players, only:[:create, :destroy]
+    patch 'start'
   end
   post 'players/:id/roll', to: 'players#roll', as: 'players_roll'
 

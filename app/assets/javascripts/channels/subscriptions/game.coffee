@@ -13,11 +13,16 @@ App.cable.subscriptions.create "GameChannel",
   disconnected: ->
 
   received: (data) ->
-    if data.operation == "create"
-      if Number(window.player.id) != Number(data.player_id)
-        panel = $('nav#players_panel')
-        panel.append("<a class='panel-block' herf='#' id='#{data.player_id}'><span class='panel-icon'><i class='fa fa-user'></i></span>#{data.player_name}</a>")
-    else if data.operation == "destroy"
-      $("a\##{data.player_id}").remove()
+    switch data.operation
+      when "create"
+        if Number(window.player.id) != Number(data.player_id)
+          panel = $('nav#players_panel')
+          panel.append("<a class='panel-block' herf='#' id='#{data.player_id}'><span class='panel-icon'><i class='fa fa-user'></i></span>#{data.player_name}</a>")  
+      when "destroy"
+        $("a\##{data.player_id}").remove()
+      when "start"
+        if Number(window.game.id) == Number(data.game_id)
+          $('a.button#start-game').attr('disabled', true)
 
-
+        if Number(window.player.id) == Number(data.player_id)
+          $('a.card-footer-item#roll-dice').attr('disabled', false)

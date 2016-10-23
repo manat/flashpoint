@@ -73,6 +73,17 @@ class GamesController < ApplicationController
     end
   end
 
+  def start
+    @game = Game.find(params[:game_id])
+    # Starts broadcasting that game is started
+    ActionCable.server.broadcast(
+      "game",
+      operation: "start",
+      game_id: @game.id,
+      current_player_id: @game.current_player.id
+    ) 
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
