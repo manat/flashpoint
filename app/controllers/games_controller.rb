@@ -31,6 +31,12 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
+    # Handles first player
+    @game.players = [Player.new(name: params["player"]["name"])]
+
+    # Hard code - board
+    @game.board = Board.first
+
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
