@@ -5,7 +5,7 @@ require 'fboard/row'
 row_num = 0
 frow = FBoard::Row.new()
 
-cells = board.cells
+cells = board.cells.order(:id)
 cells.each_with_index do |cell, index|
 
   fcell = FBoard::Cell.new(bcell: cell, index: index)
@@ -49,9 +49,9 @@ cells.each_with_index do |cell, index|
 
       frow.cells.each do |rcell|
     %>
-        <div class="column is-<%=rcell.width%> <%=rcell.offset%>">
+        <div class="column is-<%=rcell.width%> <%=rcell.offset%>" id="cell_<%=rcell.index%>">
           <% if rcell.index != -1 %>
-            <%= render partial: "home/notification", locals: {header: rcell.index + 1, body: rcell.icon_name, color: rcell.color} %>
+            <%= render partial: "home/notification", locals: {header: rcell.index + 1, body: rcell.icon_name, color: rcell.color, id: rcell.bcell_id} %>
           <% end %>
         </div>
     <% end %>

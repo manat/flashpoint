@@ -1,5 +1,9 @@
 div class="notification is-#{color}"
   div.has-text-left
     => header
+  - @game.players.each do |player|
+    - if player.cell.present? && player.cell.id == id
+      div.has-text-centered#cell_content
+        = player.name
   div.has-text-right
     i class="fa fa-#{body}"

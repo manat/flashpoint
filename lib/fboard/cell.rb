@@ -14,6 +14,7 @@ module FBoard
     attr_accessor :color
     attr_accessor :direction
     attr_accessor :offset
+    attr_accessor :bcell_id
 
     def initialize(vars)
       @bcell = vars[:bcell]
@@ -21,6 +22,11 @@ module FBoard
       self.index = vars[:index]
       self.width = determine_width
       self.color = determine_color
+      self.bcell_id = determine_bcell_id
+    end
+
+    def determine_bcell_id
+      id = @bcell.present? ? @bcell.id : -1
     end
 
     def icon_name
