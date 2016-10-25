@@ -50,13 +50,15 @@ class Game < ApplicationRecord
   def update_player(player, steps)
     if player.cell 
       current_index = board.cell_hash[player.cell]
-      player.cell = board.cells[current_index + steps]
+      cell_index = current_index + steps
+      player.cell = board.cells[cell_index] if cell_index < board.cells.size
     else
       player.cell = board.cells[steps - 1]
     end
+    
     player.turn += 1
-
     players << player
+
     end_turn
   end
 

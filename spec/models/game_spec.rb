@@ -24,5 +24,13 @@ RSpec.describe Game, type: :model do
         game.players.map(&:cell) 
       }
     end
+
+    it "updates player cell after steps are given" do
+      game.board.cells = cells
+      player = game.players.first
+      game.update_player(player, 3)
+
+      expect(player.cell_id).to eq(3)
+    end
   end
 end
