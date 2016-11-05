@@ -13,7 +13,7 @@ class Game < ApplicationRecord
   accepts_nested_attributes_for :players
 
   def started?
-    turn > 0
+    turn > 0 || players.first.turn > 0
   end
 
   def begin_turn
