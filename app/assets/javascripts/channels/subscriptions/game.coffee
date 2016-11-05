@@ -31,5 +31,19 @@ App.cable.subscriptions.create "GameChannel",
           $('a.card-footer-item#roll-dice').removeClass('is-disabled')
 
       when "update_board"
+        # Update Roll button status
+        if Number(window.player.id) == Number(data.current_player.id)
+          $('a.card-footer-item#roll-dice').removeClass('is-disabled')
+          $('p.card-header-title').prepend('<span class="panel-icon"><i class="fa fa-asterisk"></i></span>')
+        else
+          $('a.card-footer-item#roll-dice').addClass('is-disabled')
+          # Update current player icon
+          $('p.card-header-title > span').remove()
+
+
+        # Update next player name
+        $('small.roll-dice.next-player').text('Next: ' + data.next_player.name)
+
+        # Update cell movement
         $('#cell_' + data.current_cell + ' #cell_content').remove()
-        $('#cell_' + data.new_cell + ' .notification').append('<div class="has-text-centered" id="cell_content">' + data.player + '</div>')
+        $('#cell_' + data.new_cell + ' .notification').append('<div class="has-text-centered" id="cell_content">' + data.player_name + '</div>')

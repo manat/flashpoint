@@ -1,0 +1,19 @@
+.container-floating
+  .card
+    header.card-header
+      p.card-header-title
+        -if @game.current_player == @current_player
+          span.panel-icon
+            i.fa.fa-asterisk
+        = @current_player.name
+      a.card-header-icon
+        i.fa.fa-angle-down
+    .card-content
+      .content
+        p.center.player-move
+          | (0 - 6)
+        small.roll-dice.next-player 
+          | Next: 
+          = @game.next_player_name
+    footer.card-footer
+      = link_to "Roll", players_roll_path(@current_player), remote: true, method: :post, class: "card-footer-item #{"is-disabled" unless @game.started? && @game.current_player == @current_player}", id: "roll-dice"

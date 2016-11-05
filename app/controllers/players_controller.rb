@@ -45,13 +45,16 @@ class PlayersController < ApplicationController
     current_cell = @player.cell_id - 1
     steps = @player.roll_dice
     game = @player.game
+    current_player = game.next_player
     game.update_player(@player, steps)
 
     # Update movement
     ActionCable.server.broadcast(
       "game",
       operation: "update_board",
-      player: @player.name,
+      player_name: @player.name,
+      current_player: current_player, 
+      next_player: game.next_player,
       current_cell: current_cell,
       new_cell: @player.cell_id - 1
     ) 

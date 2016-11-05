@@ -83,6 +83,9 @@ class GamesController < ApplicationController
 
   def start
     @game = Game.find(params[:game_id])
+    @game.turn = 1
+    @game.save
+    
     # Starts broadcasting that game is started
     ActionCable.server.broadcast(
       "game",

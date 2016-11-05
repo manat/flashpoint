@@ -34,22 +34,7 @@ h1.title= title(@game, @current_player)
   = render partial: "players/board", locals: {board: @board}
 
 - if @current_player.present?
-  .container-floating
-    .card
-      header.card-header
-        p.card-header-title
-          = @game.current_player_name
-        a.card-header-icon
-          i.fa.fa-angle-down
-      .card-content
-        .content
-          p.center.player-move
-            | (0 - 6)
-          small 
-            | next: 
-            = @game.next_player_name
-      footer.card-footer
-        = link_to "Roll", players_roll_path(@game.current_player), remote: true, method: :post, class: "card-footer-item #{"is-disabled" unless @game.started?}", id: "roll-dice"
+  = render partial: "control", locals: {current_player: @current_player, game: @game}
 
 javascript:
   window.game = {id: #{@game.id}}

@@ -36,7 +36,7 @@ class Game < ApplicationRecord
   end
 
   def end_turn
-    if players.where({ turn: turn }).count == 0
+    if players.where({ turn: turn - 1}).count == 0
       self.turn += 1
 
       # TODO : cell act is probably in the wrong plage
@@ -63,7 +63,7 @@ class Game < ApplicationRecord
   end
 
   def current_player
-    players.where({ turn: turn }).first
+    players.where({ turn: turn - 1 }).first || players.order("turn DESC").first
   end
 
   def current_player_name
@@ -71,7 +71,7 @@ class Game < ApplicationRecord
   end
 
   def next_player
-    players.where({ turn: turn }).second
+    players.where({ turn: current_player.turn }).second || players.where({ turn: turn }).first
   end
 
   def next_player_name
