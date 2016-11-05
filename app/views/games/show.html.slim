@@ -1,7 +1,7 @@
 h1.title= title(@game, @current_player)
 .columns
 
-  - if @current_player.blank? && @players.count < Game::MAX_PLAYER
+  - if !@game.started? && @current_player.blank? && @players.count < Game::MAX_PLAYER
     .column.is-5
       nav.panel
         p.panel-heading ="New player"
