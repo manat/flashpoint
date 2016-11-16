@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - SECRET_KEY_BASE=23bb70885b8e38c346c0d84dd1cf1a20d72985447212ecd5a128e804a7462991fc30138db6c359cf2705c9d76407fd56e6699a6264563f839000d5f4816664a3
+      - DATABASE_HOST=db
+      - DATABASE_USERNAME=postgres
+    depends_on:
+      - db
