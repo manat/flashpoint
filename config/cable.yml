@@ -6,4 +6,4 @@ test:
 
 production:
   adapter: redis
-  url: redis://redistogo:b1fd9937bc3bed3e257fc81d3b80aa62@sculpin.redistogo.com:10004
+  url: redis://:<%= ENV['REDIS_PASSWORD'] %>@<%= ENV['REDIS_HOST'] %>:6379/0/cache

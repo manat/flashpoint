@@ -16,8 +16,12 @@ services:
       - SECRET_KEY_BASE=23bb70885b8e38c346c0d84dd1cf1a20d72985447212ecd5a128e804a7462991fc30138db6c359cf2705c9d76407fd56e6699a6264563f839000d5f4816664a3
       - DATABASE_HOST=db
       - DATABASE_USERNAME=postgres
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=c0d-84d-dc5
+      - RAILS_HOST=localhost:3000
     depends_on:
       - db
+      - redis
   nginx:
     build:
       context: .
@@ -26,6 +30,14 @@ services:
       - "80:80"
     links:
       - web
+  redis:
+    image: 'redis:3.2.5-alpine'
+    command: redis-server --requirepass c0d-84d-dc5
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis_data:/var/lib/redis/data'
 volumes:
   bundle: {}
   postgres_data: {}
+  redis_data: {}
