@@ -23,5 +23,3 @@ EXPOSE 3000
 
 WORKDIR /app  
 RUN bundle exec rake assets:precompile
-VOLUME ["/app/public"]
-
